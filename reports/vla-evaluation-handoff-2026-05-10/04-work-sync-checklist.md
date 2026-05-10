@@ -14,6 +14,7 @@
 | XVLA 长稳性尝试 | 已完成 | 当前主机 blocked，进程会被系统杀掉 |
 | OpenClaw 聚合评测接口 | 已完成 | `POST /api/v1/openclaw/tasks/evaluate-modules` |
 | VLA 异步推理接口 | 已完成 | `POST /api/v1/vla/tasks/infer-sample` |
+| 接口与契约索引 | 已完成 | 见 `07-interface-contract-map.md` |
 | request_id trace | 已完成 | 系统 loopback trace 完整性为 100% |
 | 故障注入 | 已完成 | busy、load failure、timeout、accelerator unavailable 等场景已有结构化结果 |
 
@@ -39,6 +40,8 @@
 
 ## 需要同步给同事的注意事项
 
+- 接口、契约和异步任务实现仍在父仓库主代码树，不在 `vla` submodule 内。
+- `vla` submodule 当前是汇报与交付材料仓库，接口契约文档是索引，不是实现代码。
 - 不要把 `XVLA` 的离线精度优势说成“已适合上线”。
 - 不要把 `SmolVLA` 的 30 次 soak 说成“生产稳定”。
 - 不要把 LIBERO RMSE 说成“抓取成功率”。
@@ -51,6 +54,7 @@
 |---|---|
 | VLA/Data | 扩展模型 soak、整理目标工位 replay、补 GreenVLA 接入评测 |
 | Runtime/Infra | 增加进程监督、自动重启、资源峰值记录 |
+| API/Contracts | 维护 `contracts.py`、VLA/OpenClaw 异步任务接口和状态映射 |
 | Vision/Camera | 接入 D435i live stream，检查 VLA 输入前处理一致性 |
 | Safety/Arm | 将 arm stub 保护动作扩展为真实安全放行链 |
 | Reporting | 维护本交付包和完整测评报告，避免结论口径漂移 |

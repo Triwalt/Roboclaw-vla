@@ -12,6 +12,7 @@
 | `04-work-sync-checklist.md` | 工作同步清单 |
 | `05-next-steps-and-risks.md` | 下一步与风险 |
 | `06-evidence-index.md` | 当前索引文件 |
+| `07-interface-contract-map.md` | 接口、契约、异步任务和状态映射索引 |
 
 ## 仓库内正式文档
 
@@ -40,14 +41,17 @@
 | 路径 | 说明 |
 |---|---|
 | `src/openclaw/communication/vla_backend.py` | VLA 后端，包含 SmolVLA、XVLA 加载、推理、扰动和隔离 worker 调用 |
+| `src/openclaw/contracts.py` | VLA、Vision、OpenClaw 聚合评测、异步任务状态和错误响应契约 |
 | `src/openclaw/controller/vla_task_controller.py` | VLA 异步任务控制器 |
 | `src/openclaw/communication/vla_service.py` | VLA HTTP 服务接口 |
 | `src/openclaw/communication/vla_service_client.py` | VLA 服务客户端 |
+| `src/openclaw/communication/openclaw_service.py` | OpenClaw 聚合评测 HTTP 服务接口 |
+| `src/openclaw/communication/openclaw_service_client.py` | OpenClaw 聚合评测服务客户端 |
 | `src/openclaw/tools/vla_inference_worker.py` | 独立 VLA 推理 worker |
 | `src/openclaw/tools/system_eval.py` | 独立服务进程系统评测工具 |
 | `src/openclaw/tools/service_runner.py` | 各服务启动入口 |
 | `src/openclaw/controller/task_orchestrator.py` | OpenClaw 聚合编排与安全决策 |
-| `src/openclaw/contracts.py` | VLA、任务状态、错误和系统评测数据结构 |
+| `src/openclaw/utils/async_tasks.py` | 通用异步任务队列、任务取消和 RESOURCE_BUSY 保护逻辑 |
 
 ## 测试覆盖
 
@@ -67,6 +71,20 @@
 | `POST /api/v1/vla/tasks/{task_id}/cancel` | 取消 VLA 推理任务 |
 | `POST /api/v1/openclaw/tasks/evaluate-modules` | 提交 OpenClaw 聚合模块评测任务 |
 | `GET /api/v1/openclaw/tasks/{task_id}` | 查询 OpenClaw 聚合评测任务状态 |
+| `POST /api/v1/openclaw/tasks/{task_id}/cancel` | 取消 OpenClaw 聚合评测任务 |
+
+## 关键契约
+
+| 契约 | 位置 | 说明 |
+|---|---|---|
+| `VLAInferenceRequest` | `src/openclaw/contracts.py` | VLA 样本级推理请求 |
+| `VLAInferenceResult` | `src/openclaw/contracts.py` | VLA 动作预测结果 |
+| `VLAInferenceTaskState` | `src/openclaw/contracts.py` | VLA 异步任务查询响应 |
+| `ModuleEvaluationRequest` | `src/openclaw/contracts.py` | OpenClaw 聚合评测请求 |
+| `ModuleEvaluationResult` | `src/openclaw/contracts.py` | OpenClaw 聚合评测结果 |
+| `ModuleEvaluationTaskState` | `src/openclaw/contracts.py` | OpenClaw 聚合异步任务查询响应 |
+| `TaskAccepted` | `src/openclaw/contracts.py` | 异步任务提交响应 |
+| `TaskStatus` | `src/openclaw/contracts.py` | 异步任务生命周期状态 |
 
 ## 关键数据点
 
